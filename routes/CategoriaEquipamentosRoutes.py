@@ -23,21 +23,12 @@ def listarCategorias(
     )
 ):
     try:
-<<<<<<< HEAD
         categorias = CategoriaEquipamentosController.buscar_todas_categoria_equipamento(db)
 
         if not categorias:
             return []
 
         return categorias
-=======
-        categorias = (
-            CategoriaEquipamentosController
-            .buscar_todas_categoria_equipamento(db)
-        )
-
-        return categorias if categorias else []
->>>>>>> 8523117e1e0455c08d5d444c88f423bffd05872a
 
     except RuntimeError as e:
         raise HTTPException(
@@ -54,7 +45,6 @@ def listarCategorias(
 def inserir(
     categoria: CategoriaEquipamento,
     db: Session = Depends(database.get_db),
-<<<<<<< HEAD
     usuario_atual=Depends(
         verifica_permissao("ADMIN", "GESTOR")
     )
@@ -69,18 +59,6 @@ def inserir(
     except RuntimeError as e:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-=======
-    usuario_atual=Depends(verifica_permissao("ADMIN", "GESTOR"))
-):
-    try:
-        return CategoriaEquipamentosController.inserir_categoria(
-            categoria,
-            db
-        )
-
-    except RuntimeError as e:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=str(e)
         )
 
@@ -89,39 +67,6 @@ def inserir(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=str(e)
         )
-
-
-@categoria_equipamento_router.put(
-    "/categorias/{categoria_id}",
-    status_code=status.HTTP_200_OK,
-    response_model=CategoriaEquipamento
-)
-def AtualizarCategoria(
-    categoria_id: int,
-    categoria_data: CategoriaEquipamento,
-    db: Session = Depends(database.get_db),
-    usuario_atual=Depends(verifica_permissao("ADMIN", "GESTOR"))
-):
-    try:
-        return CategoriaEquipamentosController.atualizar_categoria(
-            db,
-            categoria_id,
-            categoria_data
-        )
-
-    except KeyError as e:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
->>>>>>> 8523117e1e0455c08d5d444c88f423bffd05872a
-            detail=str(e)
-        )
-
-    except ValueError as e:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail=str(e)
-        )
-<<<<<<< HEAD
 
 
 @categoria_equipamento_router.put(
@@ -163,16 +108,6 @@ def AtualizarCategoria(
         )
 
 
-=======
-
-    except RuntimeError as e:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=str(e)
-        )
-
-
->>>>>>> 8523117e1e0455c08d5d444c88f423bffd05872a
 @categoria_equipamento_router.delete(
     "/categorias/{categoria_id}",
     status_code=status.HTTP_204_NO_CONTENT
@@ -180,13 +115,9 @@ def AtualizarCategoria(
 def deletar_categoria(
     categoria_id: int,
     db: Session = Depends(database.get_db),
-<<<<<<< HEAD
     usuario_atual=Depends(
         verifica_permissao("ADMIN", "GESTOR")
     )
-=======
-    usuario_atual=Depends(verifica_permissao("ADMIN", "GESTOR"))
->>>>>>> 8523117e1e0455c08d5d444c88f423bffd05872a
 ):
     try:
         CategoriaEquipamentosController.deletar_categoria(
